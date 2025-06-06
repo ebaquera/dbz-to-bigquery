@@ -122,7 +122,7 @@ This means debezium is ready to stream into Pub/Sub.
 
 These logs show that Debezium is positioned in the last modification in the database and will update from that point onwards.
 
-Now let's test it's working. Simply connect to the database and add a new line to the table using `INSERT INTO public.actor (actor_id, first_name, last_name) VALUES (1, 'test-first', 'test-last’);`.
+Now let's test it's working. Simply connect to the database and add a new line to the table using `INSERT INTO public.actor (actor_id, first_name, last_name) VALUES (1, 'test-first', 'test-last');`.
 
 After that, pull the logs from the Pub/Sub subcription to ensure the message has been received. Use `gcloud pubsub subscriptions pull postgres.public.actor-sub --auto-ack --limit=10`. The logs should look like a JSON response:
 
@@ -145,7 +145,7 @@ Let's get this data onto BigQuery, we'll need to use Dataflow to move it to BigQ
 ## Streaming into BigQuery with Dataflow
 
 First, create a Cloud Storage bucket. For this example a simple single region bucket was created, using the region we've been using so far `us-central1`.
-After that we'll need to upload the JavaScript UDF Source file. The UDF are the set of instructions used to read the Debezium packages and write the data into BigQuery. The UDF can be done in Pyhton as well, but for this example it's done in JS.
+After that we'll need to upload the JavaScript UDF Source file. The UDF are the set of instructions used to read the Debezium packages and write the data into BigQuery. The UDF can be done in Python as well, but for this example it's done in JS.
 See the attached `debezium_bigquery.js` file.
 
 After upload, we'll need to create a new Dataflow function from Template. Choose any name convenient and select `Pub/Sub to BigQuery` as the template.
