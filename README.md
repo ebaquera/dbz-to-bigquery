@@ -71,6 +71,8 @@ Create a new topic using the following namesake: `<database>.<schema>.<table>`, 
 
 Afterwards create a subscription using the same name schema followed by `-sub`, in this case the subscription is called `postgres.public.actor-sub`. Make sure the subcription type is set to `Pull`.
 
+Grant permissions to `gke-quickstart-service-account` as Pub/Sub publisher using the IAM. After the permission has been granted, be sure to run the policy binding step so both service accounts have the necessary permissions.
+
 ## BigQuery configurations
 
 Create a new dataset and table to receive the information. For the purposes of this tutorial, the dataset is named `debezium_test` and the table is named `actor_table`.
