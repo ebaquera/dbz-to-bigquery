@@ -7,7 +7,7 @@ This tutorial was made using previous Medium tutorials by [Ajitesh Kumar](https:
 ### Before getting started
 
 To start this project you will need a Google Cloud Platform account. This tutorial was made with the free trial tier of GCP.
-Keep in mind this tutorial is compatible with Postgres up to version 13, any newer versions will need a newer version of Debezium.
+Keep in mind this tutorial is using [Debezium version 1.7](https://debezium.io/releases/1.7/#compatibility) which is compatible with Postgres up to version 13, any newer versions will need a newer version of Debezium.
 If you're using Debezium from v2 onwards, you'll need to upgrade the version of Cloud SQL Proxy as well to v2, see the following [GCP Guide to migrating cloud sql proxy](https://github.com/GoogleCloudPlatform/cloud-sql-proxy/blob/main/migration-guide.md).
 
 **Now let's get started**
