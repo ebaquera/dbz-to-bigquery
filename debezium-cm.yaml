@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: debezium
+  namespace: debezium
+data:
+  application.properties: |-
+      debezium.sink.type=pubsub
+      debezium.sink.pubsub.project.id=skillful-hull-457515-m6
+      debezium.sink.pubsub.ordering.enabled=true
+      debezium.source.connector.class=io.debezium.connector.postgresql.PostgresConnector
+      debezium.source.offset.storage.file.filename=/debezium/data/offsets.dat
+      debezium.source.offset.flush.interval.ms=500
+      debezium.source.database.hostname=localhost
+      debezium.source.database.port=5432
+      debezium.source.database.user=debezium_superuser
+      debezium.source.database.password=admin
+      debezium.source.database.dbname=postgres
+      debezium.source.database.server.name=postgres
+      debezium.source.topic.prefix=postgres
+      debezium.source.table.include.list=public.actor
+      debezium.source.plugin.name=pgoutput
+      debezium.source.slot.name=debezium_postgres
+      debezium.source.publication.name=dbz_publication
