@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: debezium-gke
+  labels:
+    app: debezium
+spec:
+  replicas: 1
+  serviceName: debezium
+  selector:
+    matchLabels:
+      app: debezium
+  template:
+    metadata:
+      labels:
+        app: debezium
+        version: v1
+    spec:
+      serviceAccountName: ksa-cloud-sql
+      nodeSelector:
+        iam.gke.io/gke-metadata-server-enabled: "true"
+      securityContext:
+        fsGroup: 1000
+      containers:
+        - name: debezium
+          image: debezium/server:1.7.0.Final
+          volumeMounts:
+            - name: debezium-config-volume
+              mountPath: /debezium/conf
+            - name: debezium-data-volume
+              mountPath: /debezium/data
+        - name: cloud-sql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.17
+          command:
+            - "/cloud_sql_proxy"
+            - "-instances=<your instance connection name>=tcp:<default TCP port number>
+          securityContext:
+            runAsNonRoot: true
+      volumes:
+        - name: debezium-config-volume
+          configMap:
+            name: debezium
+  volumeClaimTemplates:
+    - metadata:
+        name: debezium-data-volume
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 10Mi
