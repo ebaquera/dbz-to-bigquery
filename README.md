@@ -61,7 +61,7 @@ These are 3 of the 4 yaml files needed for this deployment.
 
 Once the yaml files have been uploaded, we'll need to create a connection between Postgres and GKE. Follow the following [official quickstart guide](https://cloud.google.com/sql/docs/postgres/connect-instance-kubernetes). Skip the intro and begin from "Enable GKE cluster" all the way down to "Set up a service account". You can ignore from "Configure secrets" onwards, this deployment doesn't need secrets and the stateful set yaml file covers the building and deployment.
 
-**Important information:** whenever you need a permission for the Kubernetes service account (ksa-cloud-sql as called in the Quickstart guide) you can’t grant privileges to this service account since it won’t appear in the IAM. Instead, you’ll need to grant the permissions to gke-quickstart-service-account and then run the policy binding step between the kubernetes service account and the Google service account.
+**Important information:** whenever you need a permission for the Kubernetes service account (`ksa-cloud-sql` as called in the Quickstart guide) you can’t grant privileges to this service account since it won’t appear in the IAM. Instead, you’ll need to grant the permissions to `gke-quickstart-service-account` and then run the policy binding step between the kubernetes service account and the Google service account.
 
 While the cluster is deploying, let's create the Pub/Sub topic.
 
@@ -151,12 +151,12 @@ See the attached `debezium_bigquery.js` file.
 After upload, we'll need to create a new Dataflow function from Template. Choose any name convenient and select `Pub/Sub to BigQuery` as the template.
 
 Under optional parameters choose:
- - Input Pub/Sub topic: leave none, as you need to only specify one of the options.
- - Input Pub/Sub subscription: select the subscription we created for this example.
- - The Target is the table just created in BigQuery (in our case, actor_table). 
- - In Cloud Storage path to the JavaScript UDF Source select the JavaScript UDF Source and file. 
- - Specify the UDF function name is ‘process’ as such is the name in the code.
- - Service Account email: input the service account email we’ve been using gke-quickstart-service-account
+ - `Input Pub/Sub topic`: leave none, as you need to only specify one of the options.
+ - `Input Pub/Sub subscription`: select the subscription we created for this example.
+ - The `Target` is the table just created in BigQuery (in our case, actor_table). 
+ - In `Cloud Storage path to the JavaScript UDF Source` select the JavaScript UDF Source and file. 
+ - Specify the `UDF function name` is `process` as such is the name in the code.
+ - `Service Account email`: input the service account email we’ve been using `gke-quickstart-service-account`
  - Use default machine type: you can unselect this option and choose a smaller machine type if so needed. Otherwise if resources are not an issue, leave as is.
 
 Run the job. The job will take a few minutes to validate and run.
